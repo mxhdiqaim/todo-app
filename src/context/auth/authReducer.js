@@ -13,7 +13,7 @@ const authReducer = (state, action) => {
       localStorage.setItem('accessToken', action.payload);
       return {
         ...state,
-        accessToken: action.payload,
+        user: action.payload,
       };
     default:
     case USER_TOKEN_FAIL:

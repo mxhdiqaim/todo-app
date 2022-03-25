@@ -5,10 +5,11 @@ import authReducer from './authReducer';
 import { useAuth0 } from '@auth0/auth0-react';
 
 import { USER_TOKEN, USER_TOKEN_FAIL, LOGOUT } from '../types';
+import axios from 'axios';
 
 const AuthState = props => {
   const initialState = {
-    accessToken: null,
+    user: null,
   };
 
   const [state, dispatch] = useReducer(authReducer, initialState);
@@ -17,6 +18,7 @@ const AuthState = props => {
 
   // Logout
   const logoutBtn = () => {
+    localStorage.removeItem('accessToken');
     logout();
     dispatch({ type: LOGOUT });
   };
@@ -31,7 +33,19 @@ const AuthState = props => {
           scope: 'read:current_user',
         });
 
-        dispatch({ type: USER_TOKEN, payload: accessToken });
+        localStorage.setItem('accessToken', accessToken);
+
+        const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
+
+        const config = {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        };
+
+        const res = await axios.get(userDetailsByIdUrl, config);
+
+        dispatch({ type: USER_TOKEN, payload: res.data });
       } catch (err) {
         dispatch({ type: USER_TOKEN_FAIL, payload: err.message });
       }
