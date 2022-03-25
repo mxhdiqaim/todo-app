@@ -1,0 +1,71 @@
+$primary-color: #112d4e;
+$secondary-color: #3f72af;
+$soft-color: #dbe2ef;
+$light-color: #f9f7f7;
+
+// FONTS
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 1rem;
+  line-height: 1.6;
+  // font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Ubuntu', sans-serif;
+  color: #222;
+  font-weight: 400;
+}
+
+// HOME
+.home {
+  background-color: $secondary-color;
+  height: 100vh;
+  overflow-y: scroll;
+
+  .form {
+    background-color: $light-color;
+    max-width: 90%;
+    margin: 46px auto 0;
+    border-radius: 10px;
+    min-height: 70vh;
+    display: flex;
+    justify-content: center;
+
+    .logo-search {
+      text-align: center;
+      margin: 10px;
+      width: 100%;
+
+      form {
+        margin: 10px;
+
+        input {
+          padding: 10px;
+          border: none;
+          background: $soft-color;
+          width: 70%;
+          border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px;
+          margin-bottom: 10px;
+          outline: $secondary-color;
+        }
+
+        button {
+          padding: 10px;
+          border: none;
+          background: $secondary-color;
+          color: $soft-color;
+          width: 40px;
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}
