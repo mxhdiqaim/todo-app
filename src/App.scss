@@ -1,7 +1,9 @@
+// COLORS
 $primary-color: #112d4e;
 $secondary-color: #3f72af;
 $soft-color: #dbe2ef;
 $light-color: #f9f7f7;
+$dark-color: #7b7b7b;
 
 // FONTS
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
@@ -12,12 +14,16 @@ $light-color: #f9f7f7;
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-size: 1rem;
   line-height: 1.6;
   // font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-family: 'Ubuntu', sans-serif;
-  color: #222;
+  color: $dark-color;
   font-weight: 400;
 }
 
@@ -27,22 +33,29 @@ body {
   height: 100vh;
   overflow-y: scroll;
 
-  .form {
+  .home-content {
     background-color: $light-color;
     max-width: 90%;
     margin: 46px auto 0;
     border-radius: 10px;
     min-height: 70vh;
-    display: flex;
-    justify-content: center;
+    text-align: center;
+    // display: flex;
+    // justify-content: center;
 
-    .logo-search {
-      text-align: center;
-      margin: 10px;
-      width: 100%;
+    h1 {
+      padding: 8px 0;
+      font-size: 40px;
+    }
+
+    // FORM
+    .form {
+      margin: auto;
+      max-width: 90%;
 
       form {
-        margin: 10px;
+        // background-color: red;
+        font-weight: 400;
 
         input {
           padding: 10px;
@@ -54,7 +67,6 @@ body {
           margin-bottom: 10px;
           outline: $secondary-color;
         }
-
         button {
           padding: 10px;
           border: none;
@@ -67,5 +79,71 @@ body {
         }
       }
     }
+
+    // TODOS
+    .todos {
+      margin: 20px auto;
+      padding-bottom: 10px;
+      max-height: 65vh;
+      overflow-y: auto;
+      transition: all 0.5 ease;
+
+      .todo {
+        background-color: #112d4e;
+        margin: 10px auto;
+        width: 85%;
+        border-radius: 5px;
+        padding: 10px;
+        color: $dark-color;
+        background-color: $soft-color;
+
+        .todo-item {
+          display: flex;
+          align-items: center;
+
+          input {
+            margin: 5px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.auth {
+  background-color: $secondary-color;
+  height: 100vh;
+  overflow-y: scroll;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  form button {
+    padding: 10px;
+    border: none;
+    background: $primary-color;
+    color: $soft-color;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    border-radius: 4px;
+
+    &:hover {
+      background: lighten($primary-color, 10);
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  // TODOS
+  .todos {
+    margin: 20px auto;
+    padding-bottom: 10px;
+    max-height: 80vh !important;
+    overflow-y: auto;
+  }
+  .home-content {
+    // display: none;
+    max-width: 600px !important;
   }
 }
