@@ -17,6 +17,9 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
+export const USER_TOKEN = 'USER_TOKEN';
+export const USER_TOKEN_FAIL = 'USER_TOKEN_FAIL';
+
 // BLOG
 export const ADD_BLOG = 'ADD_BLOG';
 export const REMOVE_BLOG = 'REMOVE_BLOG';
