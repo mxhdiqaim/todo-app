@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NotFound from './components/pages/NotFound';
 import Home from './components/pages/Home';
 import Auth from './components/pages/Auth';
+import PrivateRoute from './components/routing/PrivateRoute';
 
 // Context APIs
 import AuthState from './context/auth/AuthState';
@@ -17,8 +18,8 @@ function App() {
         <TodoState>
           <Router>
             <Switch>
-              <Route exact path='/' component={Home} />
               <Route exact path='/auth' component={Auth} />
+              <PrivateRoute exact path='/' component={Home} />
               <Route path='*' component={NotFound} />
             </Switch>
           </Router>

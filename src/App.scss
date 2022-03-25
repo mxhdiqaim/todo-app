@@ -4,6 +4,7 @@ $secondary-color: #3f72af;
 $soft-color: #dbe2ef;
 $light-color: #f9f7f7;
 $dark-color: #7b7b7b;
+$transitions: all 0.5s ease;
 
 // FONTS
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
@@ -32,6 +33,7 @@ body {
   background-color: $secondary-color;
   height: 100vh;
   overflow-y: scroll;
+  position: relative;
 
   .home-content {
     background-color: $light-color;
@@ -43,9 +45,32 @@ body {
     // display: flex;
     // justify-content: center;
 
-    h1 {
-      padding: 8px 0;
-      font-size: 40px;
+    .logo {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      transition: $transitions;
+
+      h1 {
+        padding: 8px 0;
+        font-size: 40px;
+      }
+
+      button {
+        height: fit-content;
+        padding: 8px;
+        border: none;
+        background: $secondary-color;
+        color: $soft-color;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: $transitions;
+        border-radius: 4px;
+
+        &:hover {
+          background: lighten($secondary-color, 10);
+        }
+      }
     }
 
     // FORM
@@ -86,7 +111,7 @@ body {
       padding-bottom: 10px;
       max-height: 65vh;
       overflow-y: auto;
-      transition: all 0.5 ease;
+      transition: $transitions;
 
       .todo {
         background-color: #112d4e;
@@ -125,7 +150,7 @@ body {
     color: $soft-color;
     font-size: 1.2rem;
     cursor: pointer;
-    transition: all 0.5s ease;
+    transition: $transitions;
     border-radius: 4px;
 
     &:hover {
