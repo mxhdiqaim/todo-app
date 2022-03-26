@@ -14,24 +14,64 @@ import './App.scss';
 // TOKEN
 import setAuthToken from './utils/setAuthToken';
 
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
+
+import { setContext } from '@apollo/client/link/context';
+
 if (localStorage.accessToken) {
   setAuthToken(localStorage.accessToken);
 }
 
-function App() {
+const App = () => {
+  const httpLink = createHttpLink({
+    uri: '/graphql',
+  });
+
+  const authLink = setContext((_, { headers }) => {
+    // get the authentication token from local storage if it exists
+    const accessToken = localStorage.accessToken;
+
+    // return the headers to the context so httpLink can read them
+    return {
+      headers: {
+        ...headers,
+        Authorization: accessToken ? `Bearer ${accessToken}` : '',
+      },
+    };
+  });
+
+  // console.log(httpLink);
+
+  // const client = new ApolloClient({
+  //   uri: 'https://hasura-todo-api.hasura.app/v1/graphql',
+  //   cache: new InMemoryCache(),
+  // });
+
+  const client = new ApolloClient({
+    link: authLink.concat(httpLink),
+    cache: new InMemoryCache(),
+  });
+
   return (
-    <AlertState>
-      <TodoState>
-        <Router>
-          <Switch>
-            <Route exact path='/auth' component={Auth} />
-            <PrivateRoute exact path='/' component={Home} />
-            <Route path='*' component={NotFound} />
-          </Switch>
-        </Router>
-      </TodoState>
-    </AlertState>
+    <ApolloProvider client={client}>
+      <AlertState>
+        <TodoState>
+          <Router>
+            <Switch>
+              <Route exact path='/auth' component={Auth} />
+              <PrivateRoute exact path='/' component={Home} />
+              <Route path='*' component={NotFound} />
+            </Switch>
+          </Router>
+        </TodoState>
+      </AlertState>
+    </ApolloProvider>
   );
-}
+};
 
 export default App;

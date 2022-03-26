@@ -5,16 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from '@auth0/auth0-react';
 
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 const audience = process.env.REACT_APP_AUTH0_AUDIENCE;
-
-const client = new ApolloClient({
-  uri: 'https://hasura-todo-api.hasura.app/v1/graphql',
-  cache: new InMemoryCache(),
-});
 
 ReactDOM.render(
   <React.StrictMode>
@@ -24,9 +17,7 @@ ReactDOM.render(
       redirectUri={window.location.origin}
       audience={audience}
       scope='read:current_user update:current_user_metadata'>
-      <ApolloProvider client={client}>
-        <App />
-      </ApolloProvider>
+      <App />
     </Auth0Provider>
   </React.StrictMode>,
   document.getElementById('root'),
