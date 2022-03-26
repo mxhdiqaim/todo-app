@@ -5,25 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from '@auth0/auth0-react';
 
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useQuery,
-  gql,
-} from '@apollo/client';
-
-const QUERY = gql`
-  query MyQuery {
-    users {
-      id
-      name
-      email
-      created_at
-      updated_at
-    }
-  }
-`;
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;

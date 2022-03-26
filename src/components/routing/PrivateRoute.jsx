@@ -3,15 +3,12 @@ import { Route } from 'react-router-dom';
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 import Spinner from '../layouts/Spinner';
 
-const PrivateRoute = props => {
-  return (
-    <Route
-      component={withAuthenticationRequired(props.component, {
-        onRedirecting: () => <Spinner />,
-      })}
-      {...props.args}
-    />
-  );
-};
-
+const PrivateRoute = ({ component, ...args }) => (
+  <Route
+    component={withAuthenticationRequired(component, {
+      onRedirecting: () => <Spinner />,
+    })}
+    {...args}
+  />
+);
 export default PrivateRoute;
