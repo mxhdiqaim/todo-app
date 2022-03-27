@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import AlertContext from '../../context/alert/alertContext';
 
 const Form = () => {
+  const { setAlert, alerts } = useContext(AlertContext);
+
   const [todo, setTodo] = useState({
     title: '',
     isCompleted: false,
@@ -13,9 +16,15 @@ const Form = () => {
     setTodo({ ...todo, [e.target.name]: e.target.value });
   };
 
+  console.log(alerts);
+
   const onSubmit = e => {
     e.preventDefault();
-    console.log(todo);
+    if (title === '') {
+      setAlert('Please add a todo', 'danger');
+    } else {
+      console.log(todo);
+    }
   };
 
   return (

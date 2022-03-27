@@ -129,6 +129,10 @@ body {
           &:hover {
             background-color: lighten($secondary-color, 10);
           }
+
+          &:active {
+            background-color: darken($secondary-color, 20);
+          }
         }
       }
     }
