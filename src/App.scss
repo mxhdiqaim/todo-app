@@ -98,7 +98,6 @@ body {
         // align-items: center;
 
         input {
-          background: red;
           padding: 10px;
           border: none;
           background: $soft-color;
@@ -109,7 +108,6 @@ body {
           outline: $secondary-color;
 
           &.checkbox {
-            background: red !important;
             width: 20px;
           }
         }
@@ -150,16 +148,47 @@ body {
         margin: 10px auto;
         width: 85%;
         border-radius: 5px;
-        padding: 10px;
+        padding: 2px;
         color: $dark-color;
         background-color: $soft-color;
 
-        .todo-item {
-          display: flex;
-          align-items: center;
+        form {
+          background-color: transparent;
+          .todo-item {
+            display: flex;
+            align-items: center;
 
-          input {
-            margin: 5px;
+            input {
+              margin: 5px;
+              padding: 8px;
+              border: none;
+              outline: $secondary-color;
+              background: $soft-color;
+              // width: 70%;
+              // border-top-left-radius: 5px;
+              // border-bottom-left-radius: 5px;
+              // margin-bottom: 10px;
+
+              &.isCompleted {
+                width: 40px;
+                margin-right: -10px;
+              }
+
+              &.title {
+                width: 100%;
+              }
+              &.isPublic {
+                width: 40px;
+                margin-left: -10px;
+              }
+            }
+            .isPublic {
+              width: 100px;
+              padding: 5px;
+              text-align: center;
+              text-transform: capitalize;
+              font-size: 0.8rem;
+            }
           }
         }
       }
