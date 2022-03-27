@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import AlertContext from '../../context/alert/alertContext';
 
 const Form = () => {
-  const { setAlert, alerts } = useContext(AlertContext);
+  const { setAlert } = useContext(AlertContext);
 
   const [todo, setTodo] = useState({
     title: '',
