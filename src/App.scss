@@ -5,6 +5,7 @@ $soft-color: #dbe2ef;
 $light-color: #f9f7f7;
 $dark-color: #7b7b7b;
 $transitions: all 0.5s ease;
+$danger-color: #990505;
 
 // FONTS
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
@@ -67,6 +68,14 @@ body {
         transition: $transitions;
         border-radius: 4px;
 
+        &.logout {
+          background-color: $danger-color;
+
+          &:hover {
+            background-color: lighten($danger-color, 10);
+          }
+        }
+
         &:hover {
           background: lighten($secondary-color, 10);
         }
@@ -76,13 +85,20 @@ body {
     // FORM
     .form {
       margin: auto;
-      max-width: 90%;
+      width: 100%;
 
       form {
-        // background-color: red;
+        padding: 10px;
         font-weight: 400;
+        display: flex;
+        flex-direction: column;
+        width: 85%;
+        margin: auto;
+        // justify-content: center;
+        // align-items: center;
 
         input {
+          background: red;
           padding: 10px;
           border: none;
           background: $soft-color;
@@ -91,7 +107,13 @@ body {
           border-bottom-left-radius: 5px;
           margin-bottom: 10px;
           outline: $secondary-color;
+
+          &.checkbox {
+            background: red !important;
+            width: 20px;
+          }
         }
+
         button {
           padding: 10px;
           border: none;
@@ -101,6 +123,12 @@ body {
           border-top-right-radius: 5px;
           border-bottom-right-radius: 5px;
           margin-bottom: 10px;
+          cursor: pointer;
+          transition: $transitions;
+
+          &:hover {
+            background-color: lighten($secondary-color, 10);
+          }
         }
       }
     }
