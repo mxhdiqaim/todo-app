@@ -16,8 +16,6 @@ const Form = () => {
     setTodo({ ...todo, [e.target.name]: e.target.value });
   };
 
-  console.log(alerts);
-
   const onSubmit = e => {
     e.preventDefault();
     if (title === '') {

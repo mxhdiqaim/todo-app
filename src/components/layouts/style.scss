@@ -1,0 +1,20 @@
+$danger-color: #dc3545;
+
+.alerts {
+  position: relative;
+  z-index: 10;
+  transition: all 0.5s ease;
+
+  .alert {
+    padding: 5px;
+    color: #fff;
+    z-index: 20;
+  }
+}
+
+.alert-success {
+  background-color: #60be87;
+}
+.alert-danger {
+  background-color: $danger-color;
+}

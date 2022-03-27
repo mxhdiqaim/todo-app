@@ -1,7 +1,10 @@
 import { gql, useQuery } from '@apollo/client';
 import { useAuth0 } from '@auth0/auth0-react';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
+import Alerts from '../layouts/Alerts';
 import Form from '../layouts/Form';
+
+import AlertContext from '../../context/alert/alertContext';
 
 import Todos from '../layouts/Todos';
 
@@ -14,6 +17,8 @@ const GET_TODOS = gql`
   }
 `;
 const Home = () => {
+  const { alerts } = useContext(AlertContext);
+
   const {
     getAccessTokenSilently,
     user,
@@ -48,6 +53,7 @@ const Home = () => {
 
   return (
     <div className='home'>
+      {alerts && <Alerts />}
       <div className='home-content'>
         <div className='logo'>
           <h1>To Do App</h1>
