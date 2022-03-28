@@ -1,8 +1,8 @@
-import { gql, useQuery } from '@apollo/client';
 import { useAuth0 } from '@auth0/auth0-react';
 import React, { useContext, useEffect } from 'react';
 import Alerts from '../layouts/Alerts';
 import Form from '../layouts/Form';
+import { useQuery, gql } from '@apollo/client';
 
 import AlertContext from '../../context/alert/alertContext';
 
@@ -16,6 +16,7 @@ const GET_TODOS = gql`
     }
   }
 `;
+
 const Home = () => {
   const { alerts } = useContext(AlertContext);
 
@@ -29,10 +30,10 @@ const Home = () => {
 
   const { loading, error, data } = useQuery(GET_TODOS);
 
-  console.log({ loading, error, data });
+  console.log({ loading, data, error });
 
   useEffect(() => {
-    localStorage.removeItem('accessToken');
+    // localStorage.removeItem('accessToken');
     const getUserMetadata = async () => {
       const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 
