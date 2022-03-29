@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-const Todo = ({ todo }) => {
+const Todo = ({ todo, setTodo }) => {
   const [todoes, setTodoes] = useState({
     title: todo.title,
-    isCompleted: todo.isCompleted,
-    isPublic: todo.isPublic,
+    isCompleted: todo.is_completed,
+    isPublic: todo.is_public,
   });
 
   const [, setEdit] = useState(false);
@@ -24,6 +24,7 @@ const Todo = ({ todo }) => {
             type='checkbox'
             name='isCompleted'
             value={isCompleted}
+            checked={isCompleted}
             onChange={() => setTodoes({ ...todoes, isCompleted: !isCompleted })}
           />
           {/* <p>{todo.title}</p> */}
@@ -50,6 +51,7 @@ const Todo = ({ todo }) => {
             type='checkbox'
             name='isPublic'
             value={isPublic}
+            checked={isPublic}
             onChange={() => setTodoes({ ...todoes, isPublic: !isPublic })}
           />
         </div>

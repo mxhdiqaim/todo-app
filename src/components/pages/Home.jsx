@@ -1,7 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Alerts from '../layouts/Alerts';
 import Form from '../layouts/Form';
+import Spinner from '../layouts/Spinner';
 import { useQuery, gql } from '@apollo/client';
 
 import AlertContext from '../../context/alert/alertContext';
@@ -13,6 +14,8 @@ const GET_TODOS = gql`
     todos {
       id
       title
+      is_completed
+      is_public
     }
   }
 `;
@@ -30,7 +33,14 @@ const Home = () => {
 
   const { loading, error, data } = useQuery(GET_TODOS);
 
-  console.log({ loading, data, error });
+  const [todos, setTodos] = useState(data.todos);
+  console.log(todos);
+
+  const onchange = e => {
+    setTodos({ ...todos, [e.target.name]: e.target.value });
+
+    console.log(e.target.value);
+  };
 
   useEffect(() => {
     // localStorage.removeItem('accessToken');
@@ -52,6 +62,10 @@ const Home = () => {
     getUserMetadata();
   }, [getAccessTokenSilently, user?.sub]);
 
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
     <div className='home'>
       {alerts && <Alerts />}
@@ -67,7 +81,9 @@ const Home = () => {
           )}
         </div>
         <Form />
-        <Todos />
+        {!loading && (
+          <Todos todos={todos} setTodos={setTodos} onchange={onchange} />
+        )}
       </div>
     </div>
   );
