@@ -55,20 +55,22 @@ const Todos = () => {
 
   const { data, loading, error } = useQuery(GET_TODOS);
 
-  const [toggleTodo] = useMutation(TOGGLE_TODOS);
-  const [deleteTodo] = useMutation(DELETE_TODO);
+  const [toggleTodo, resToggle] = useMutation(TOGGLE_TODOS);
+
+  const [deleteTodo, res] = useMutation(DELETE_TODO);
 
   // CHECK is_completed
   const handleToggle =
     ({ id, is_completed }) =>
     () => {
-      setAlert('Loading...', 'primary');
       toggleTodo({
         variables: { id, is_completed: !is_completed },
       });
-      // setAlert(null);
+      // COMPLETED STATE ALERT
+      if (!resToggle.loading) setAlert('Completed updated', 'danger');
     };
 
+  // DELETE TODO
   const handleDelete =
     ({ id }) =>
     () => {
@@ -81,6 +83,8 @@ const Todos = () => {
           cache.writeQuery({ query: GET_TODOS, data: { todos: newTodos } });
         },
       });
+      // CHECK IF todo deleted before ALERT
+      if (!res.data) setAlert('Todo deleted', 'danger');
     };
 
   if (error) {

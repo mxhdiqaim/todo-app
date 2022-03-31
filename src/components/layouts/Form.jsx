@@ -13,14 +13,14 @@ const ADD_TODO = gql`
 `;
 
 const Form = () => {
-  const { setAlert } = useContext(AlertContext);
+  const { setAlert, reloadWindow } = useContext(AlertContext);
 
   const [todo, setTodo] = useState({
     title: '',
     isCompleted: false,
   });
 
-  const [addTodo] = useMutation(ADD_TODO, {
+  const [addTodo, { loading }] = useMutation(ADD_TODO, {
     onCompleted: () =>
       setTodo({
         title: '',
@@ -44,6 +44,7 @@ const Form = () => {
         variables: { title: title, is_completed: false },
       });
     }
+    if (!loading) reloadWindow();
   };
 
   return (

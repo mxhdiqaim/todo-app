@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import AlertContext from './alertContext';
 import alertReducer from './alertReducer';
 
-import { SET_ALERT, REMOVE_ALERT } from '../types';
+import { SET_ALERT, REMOVE_ALERT, WINDOW_RELOAD } from '../types';
 
 const AlertState = props => {
   const initialState = {
@@ -19,12 +19,18 @@ const AlertState = props => {
     });
     setTimeout(() => dispatch({ type: REMOVE_ALERT }), timeout);
   };
+  const reloadWindow = () => {
+    dispatch({
+      type: WINDOW_RELOAD,
+    });
+  };
 
   return (
     <AlertContext.Provider
       value={{
         alerts: state.alerts,
         setAlert,
+        reloadWindow,
       }}>
       {props.children}
     </AlertContext.Provider>
