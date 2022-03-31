@@ -6,7 +6,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
-import CommentIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import AlertContext from '../../context/alert/alertContext';
 import Alerts from './Alerts';
 
@@ -38,12 +38,25 @@ const TOGGLE_TODOS = gql`
   }
 `;
 
+// delete todos
+const DELETE_TODO = gql`
+  mutation deleteTodo($id: uuid!) {
+    delete_todos(where: { id: { _eq: $id } }) {
+      returning {
+        id
+      }
+      affected_rows
+    }
+  }
+`;
+
 const Todos = () => {
   const { setAlert, alerts } = useContext(AlertContext);
 
   const { data, loading, error } = useQuery(GET_TODOS);
 
-  const [toggleTodo, {}] = useMutation(TOGGLE_TODOS);
+  const [toggleTodo] = useMutation(TOGGLE_TODOS);
+  const [deleteTodo] = useMutation(DELETE_TODO);
 
   // CHECK is_completed
   const handleToggle =
@@ -54,6 +67,20 @@ const Todos = () => {
         variables: { id, is_completed: !is_completed },
       });
       // setAlert(null);
+    };
+
+  const handleDelete =
+    ({ id }) =>
+    () => {
+      console.log(id);
+      deleteTodo({
+        variables: { id },
+        update: cache => {
+          const prevData = cache.readQuery({ query: GET_TODOS });
+          const newTodos = prevData.todos.filter(todo => todo.id !== id);
+          cache.writeQuery({ query: GET_TODOS, data: { todos: newTodos } });
+        },
+      });
     };
 
   if (error) {
@@ -72,8 +99,12 @@ const Todos = () => {
             <ListItem
               key={todo.id}
               secondaryAction={
-                <IconButton edge='end' aria-label='comments'>
-                  <CommentIcon />
+                <IconButton
+                  edge='end'
+                  aria-label='comments'
+                  onClick={handleDelete(todo)}
+                  sx={{ color: '#dc3545' }}>
+                  <DeleteIcon />
                 </IconButton>
               }
               disablePadding>

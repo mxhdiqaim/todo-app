@@ -39,7 +39,7 @@ const Form = () => {
     if (title === '') {
       setAlert('Please add a todo', 'danger');
     } else {
-      setAlert('Adding todo', 'success');
+      setAlert('Adding todo...', 'success');
       await addTodo({
         variables: { title: title, is_completed: false },
       });
