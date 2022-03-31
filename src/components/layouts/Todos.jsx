@@ -67,7 +67,7 @@ const Todos = () => {
         variables: { id, is_completed: !is_completed },
       });
       // COMPLETED STATE ALERT
-      if (!resToggle.loading) setAlert('Completed updated', 'danger');
+      if (!resToggle.loading) setAlert('Completed updated', 'success');
     };
 
   // DELETE TODO
