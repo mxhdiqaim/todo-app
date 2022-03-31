@@ -1,4 +1,5 @@
 $danger-color: #dc3545;
+$primary-color: #3f72af;
 
 .alerts {
   position: relative;
@@ -17,4 +18,8 @@ $danger-color: #dc3545;
 }
 .alert-danger {
   background-color: $danger-color;
+}
+
+.alert-primary {
+  background-color: $primary-color;
 }

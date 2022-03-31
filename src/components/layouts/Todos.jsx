@@ -43,17 +43,17 @@ const Todos = () => {
 
   const { data, loading, error } = useQuery(GET_TODOS);
 
-  const [toggleTodo] = useMutation(TOGGLE_TODOS);
+  const [toggleTodo, {}] = useMutation(TOGGLE_TODOS);
 
+  // CHECK is_completed
   const handleToggle =
     ({ id, is_completed }) =>
     () => {
-      console.log('hello');
+      setAlert('Loading...', 'primary');
       toggleTodo({
         variables: { id, is_completed: !is_completed },
       });
-
-      // setChecked(newChecked);
+      // setAlert(null);
     };
 
   if (error) {
@@ -68,7 +68,6 @@ const Todos = () => {
       <List sx={{ width: '100%', maxWidth: '100%', bgcolor: '#f9f7f7' }}>
         {data.todos.map(todo => {
           const labelId = todo.id;
-
           return (
             <ListItem
               key={todo.id}
