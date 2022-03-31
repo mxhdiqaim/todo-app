@@ -74,7 +74,6 @@ const Todos = () => {
   const handleDelete =
     ({ id }) =>
     () => {
-      console.log(id);
       deleteTodo({
         variables: { id },
         update: cache => {
