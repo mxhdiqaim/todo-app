@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import axios from 'axios';
 import TodoContext from './todoContext';
 import todoReducer from './todoReducer';
@@ -15,15 +15,9 @@ import {
   SET_LOADING,
   SET_SPINNER,
   REMOVE_SPINNER,
-  USER_TOKEN,
-  USER_TOKEN_FAIL,
 } from '../types';
 
-import { useAuth0 } from '@auth0/auth0-react';
-
 const TodoState = props => {
-  const { getAccessTokenSilently, user } = useAuth0();
-
   const initialState = {
     loading: false,
     todos: null,
@@ -107,37 +101,6 @@ const TodoState = props => {
     dispatch({ type: REMOVE_SPINNER });
     // enableBodyScroll(document);
   };
-
-  useEffect(() => {
-    const getUserMetadata = async () => {
-      const domain = process.env.REACT_APP_AUTH0_DOMAIN;
-
-      try {
-        const accessToken = await getAccessTokenSilently({
-          audience: `https://${domain}/api/v2/`,
-          scope: 'read:current_user',
-        });
-
-        localStorage.setItem('accessToken', accessToken);
-
-        const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
-
-        const config = {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        };
-
-        const res = await axios.get(userDetailsByIdUrl, config);
-
-        dispatch({ type: USER_TOKEN, payload: res.data });
-      } catch (err) {
-        dispatch({ type: USER_TOKEN_FAIL, payload: err.message });
-      }
-    };
-
-    getUserMetadata();
-  }, [getAccessTokenSilently, user?.sub]);
 
   return (
     <TodoContext.Provider
