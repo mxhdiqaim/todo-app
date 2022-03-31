@@ -20,7 +20,7 @@ const Form = () => {
     isCompleted: false,
   });
 
-  const [addTodo, { loading }] = useMutation(ADD_TODO, {
+  const [addTodo] = useMutation(ADD_TODO, {
     onCompleted: () =>
       setTodo({
         title: '',
